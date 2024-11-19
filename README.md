@@ -2,7 +2,7 @@
 
 This is a mod add various mobs banners for decoration purpose.
 
-<div align=center><img src="https://github.com/CodeOfArdonia/MobsBanner/img/1.webp" style="width:400px;text-align:center;" alt=""></img></div>
+<div align=center><img src="https://raw.githubusercontent.com/CodeOfArdonia/MobsBanner/refs/heads/master/img/1.webp" style="width:400px;text-align:center;" alt=""></img></div>
 
 ## How to use
 
