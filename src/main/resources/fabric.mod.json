@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "mobs_banner",
+  "version": "${version}",
+  "name": "Mobs Banner",
+  "description": "Add decorative banners for almost all mobs",
+  "authors": [
+    "IAFEnvoy"
+  ],
+  "contact": {
+    "sources": "https://github.com/CodeOfArdonia/MobsBanner"
+  },
+  "license": "MIT",
+  "icon": "logo.jpg",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.iafenvoy.mobsbanner.MobsBanner"
+    ],
+    "client": [
+      "com.iafenvoy.mobsbanner.MobsBannerClient"
+    ],
+    "cardinal-components-block": [
+      "com.iafenvoy.mobsbanner.component.ModComponentEntry"
+    ]
+  },
+  "custom": {
+    "cardinal-components": [
+      "mobs_banner:banner_block"
+    ]
+  },
+  "mixins": [
+    "mobs-banner.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": "*",
+    "minecraft": "~1.20.1",
+    "java": ">=17",
+    "fabric-api": "*"
+  }
+}
