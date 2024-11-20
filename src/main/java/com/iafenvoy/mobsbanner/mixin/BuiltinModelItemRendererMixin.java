@@ -5,11 +5,14 @@ import com.iafenvoy.mobsbanner.component.CcaComponentHelper;
 import com.iafenvoy.mobsbanner.render.MobRenderHelper;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.item.BuiltinModelItemRenderer;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -22,6 +25,7 @@ public class BuiltinModelItemRendererMixin {
     private void handleShieldBanner(ItemStack stack, ModelTransformationMode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, CallbackInfo ci) {
         BannerBlockComponent component = new BannerBlockComponent();
         component.readFromNbt(CcaComponentHelper.resolve(BannerBlockComponent.ID, stack));
-        MobRenderHelper.CURRENT_COMPONENT.push(component);
+        ClientPlayerEntity player = MinecraftClient.getInstance().player;
+        MobRenderHelper.RENDER_STACK.push(new MobRenderHelper.StackHolder(component, player == null ? BlockPos.ORIGIN : player.getBlockPos(), true));
     }
 }

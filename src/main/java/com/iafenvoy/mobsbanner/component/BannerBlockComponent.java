@@ -31,7 +31,7 @@ public class BannerBlockComponent implements AutoSyncedComponent, ComponentV3 {
             this.setType(null);
         }
         this.setEntityData(nbt.getCompound("nbt"));
-        this.setTransform(DefaultMobBannerData.TransformData.CODEC.parse(NbtOps.INSTANCE, nbt.get("transform")).resultOrPartial(MobsBanner.LOGGER::error).orElse(DefaultMobBannerData.TransformData.create()));
+        this.setTransform(DefaultMobBannerData.TransformData.CODEC.parse(NbtOps.INSTANCE, nbt.get("transform")).resultOrPartial(MobsBanner.LOGGER::debug).orElse(DefaultMobBannerData.TransformData.create()));
     }
 
     @Override
@@ -39,7 +39,7 @@ public class BannerBlockComponent implements AutoSyncedComponent, ComponentV3 {
         if (this.getType() != null)
             nbt.putString("type", Registries.ENTITY_TYPE.getId(this.getType()).toString());
         nbt.put("nbt", this.getEntityData());
-        nbt.put("transform", DefaultMobBannerData.TransformData.CODEC.encodeStart(NbtOps.INSTANCE, this.getTransform()).getOrThrow(true, MobsBanner.LOGGER::error));
+        nbt.put("transform", DefaultMobBannerData.TransformData.CODEC.encodeStart(NbtOps.INSTANCE, this.getTransform()).getOrThrow(true, MobsBanner.LOGGER::debug));
     }
 
     @Nullable

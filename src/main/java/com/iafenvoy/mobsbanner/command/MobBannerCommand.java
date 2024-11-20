@@ -21,6 +21,7 @@ import java.util.UUID;
 public class MobBannerCommand {
     public static void init() {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, env) -> dispatcher.register(CommandManager.literal("mob_banner")
+                .requires(source -> source.hasPermissionLevel(source.getServer().getOpPermissionLevel()))
                 .then(CommandManager.argument("players", EntityArgumentType.players())
                         .then(CommandManager.argument("entity_type", RegistryEntryArgumentType.registryEntry(registryAccess, RegistryKeys.ENTITY_TYPE))
                                 .then(CommandManager.argument("base_item", RegistryEntryArgumentType.registryEntry(registryAccess, RegistryKeys.ITEM))

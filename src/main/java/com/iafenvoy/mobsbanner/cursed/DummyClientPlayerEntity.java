@@ -9,7 +9,6 @@ import net.minecraft.client.render.entity.PlayerModelPart;
 import net.minecraft.client.util.DefaultSkinHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
@@ -97,10 +96,5 @@ public class DummyClientPlayerEntity extends ClientPlayerEntity {
     @Override
     public ItemStack getEquippedStack(EquipmentSlot slot) {
         return this.equippedStackSupplier.apply(slot);
-    }
-
-    @Override
-    public Text getName() {
-        return super.getName();
     }
 }

@@ -2,12 +2,14 @@ package com.iafenvoy.mobsbanner.banner;
 
 import com.iafenvoy.mobsbanner.component.BannerBlockComponent;
 import com.iafenvoy.mobsbanner.component.CcaComponentHelper;
+import com.iafenvoy.mobsbanner.cursed.DummyClientPlayerEntity;
 import com.iafenvoy.mobsbanner.data.DefaultMobBannerData;
 import com.iafenvoy.mobsbanner.util.DyeColorUtil;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -20,8 +22,14 @@ import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class MobBannerHelper {
+    private static final List<String> REMOVE_KEYS = List.of("Health", "HurtTime", "HurtByTimestamp", "DeathTime", "Attributes", "Inventory");
+
     public static Item getBannerItem(DyeColor color) {
         return switch (color) {
             case WHITE -> Items.WHITE_BANNER;
@@ -68,11 +76,12 @@ public class MobBannerHelper {
         return create(type, entityData, DyeColorUtil.getDyeColorByColor(primaryColor), DyeColorUtil.getDyeColorByColor(secondaryColor), transform);
     }
 
+    public static void removeUnusedNbt(NbtCompound nbt) {
+        REMOVE_KEYS.forEach(nbt::remove);
+    }
+
     public static ItemStack create(EntityType<?> type, NbtCompound entityData, DyeColor primaryColor, DyeColor secondaryColor, DefaultMobBannerData.TransformData transform) {
-        entityData.remove("Health");
-        entityData.remove("DeathTime");
-        entityData.remove("Attributes");
-        entityData.remove("Inventory");
+        removeUnusedNbt(entityData);
         return create(Registries.ENTITY_TYPE.getId(type), getBannerItem(secondaryColor), type, entityData, transform,
                 new Pair<>(BannerPatterns.TRIANGLES_TOP, primaryColor),
                 new Pair<>(BannerPatterns.TRIANGLES_BOTTOM, primaryColor),
@@ -99,5 +108,21 @@ public class MobBannerHelper {
         stack.setCustomName(Text.translatable("item.mobs_banner.banner", Text.translatable(id.toTranslationKey("entity"))).setStyle(Style.EMPTY.withColor(Formatting.LIGHT_PURPLE).withItalic(false)));
         stack.addHideFlag(ItemStack.TooltipSection.ADDITIONAL);
         return stack;
+    }
+
+    @Nullable
+    public static LivingEntity createEntity(EntityType<?> type, NbtCompound nbt, World world) {
+        if (type == null) return null;
+        if (type == EntityType.PLAYER)
+            return DummyClientPlayerEntity.get(nbt.containsUuid("player_uuid") ? nbt.getUuid("player_uuid") : null, nbt.getString("player_name"));
+        else if (type.create(world) instanceof LivingEntity livingEntity) {
+            try {
+                livingEntity.readCustomDataFromNbt(nbt);
+                livingEntity.tick();
+            } catch (Exception ignored) {
+            }
+            return livingEntity;
+        }
+        return null;
     }
 }

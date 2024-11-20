@@ -177,12 +177,10 @@ public record CursedRegistry<T>(RegistryKey<? extends Registry<T>> registryKey, 
 
     @Override
     public void clearTags() {
-
     }
 
     @Override
     public void populateTags(Map<TagKey<T>, List<RegistryEntry<T>>> tagEntries) {
-
     }
 
     @Override
@@ -192,7 +190,7 @@ public record CursedRegistry<T>(RegistryKey<? extends Registry<T>> registryKey, 
 
     @Override
     public RegistryWrapper.Impl<T> getReadOnlyWrapper() {
-        return new RegistryWrapper.Impl<T>() {
+        return new RegistryWrapper.Impl<>() {
             @Override
             public RegistryKey<? extends Registry<? extends T>> getRegistryKey() {
                 return CursedRegistry.this.registryKey;

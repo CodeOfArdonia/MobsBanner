@@ -41,10 +41,10 @@ public class DyeColorUtil {
             case ORANGE, BROWN -> new Pair<>(DyeColor.BROWN, DyeColor.ORANGE);
             case MAGENTA, PURPLE -> new Pair<>(DyeColor.PURPLE, DyeColor.MAGENTA);
             case LIGHT_BLUE, BLUE -> new Pair<>(DyeColor.LIGHT_BLUE, DyeColor.BLUE);
-            case YELLOW -> new Pair<>(DyeColor.ORANGE, DyeColor.YELLOW);
             case LIME, GREEN -> new Pair<>(DyeColor.LIME, DyeColor.GREEN);
             case PINK, RED -> new Pair<>(DyeColor.PINK, DyeColor.RED);
             case GRAY, BLACK -> new Pair<>(DyeColor.GRAY, DyeColor.BLACK);
+            case YELLOW -> new Pair<>(DyeColor.ORANGE, DyeColor.YELLOW);
             case CYAN -> new Pair<>(DyeColor.LIGHT_BLUE, DyeColor.CYAN);
         };
     }

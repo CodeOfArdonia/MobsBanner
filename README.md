@@ -1,6 +1,6 @@
 # Mobs Banner
 
-This is a mod add various mobs banners for decoration purpose.
+This is a mod add various mobs banners for decoration purpose. You can also use them on shield.
 
 <div align=center><img src="https://raw.githubusercontent.com/CodeOfArdonia/MobsBanner/refs/heads/master/img/1.webp" style="width:400px;text-align:center;" alt=""></img></div>
 

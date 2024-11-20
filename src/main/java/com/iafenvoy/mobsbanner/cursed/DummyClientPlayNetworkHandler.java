@@ -77,19 +77,12 @@ public class DummyClientPlayNetworkHandler extends ClientPlayNetworkHandler {
         @Override
         public Optional<Registry> getOptional(RegistryKey key) {
             var x = Registries.REGISTRIES.get(key);
-            if (x != null) {
-                return Optional.of(x);
-            } else if (RegistryKeys.DAMAGE_TYPE.equals(key)) {
-                return Optional.of(this.damageTypes);
-            } else if (RegistryKeys.BIOME.equals(key)) {
-                return Optional.of(cursedBiomeRegistry);
-            } else if (RegistryKeys.DIMENSION_TYPE.equals(key)) {
-                return Optional.of(CURSED_DIMENSION_TYPE_REGISTRY);
-            } else if (RegistryKeys.BANNER_PATTERN.equals(key)) {
+            if (x != null) return Optional.of(x);
+            else if (RegistryKeys.DAMAGE_TYPE.equals(key)) return Optional.of(this.damageTypes);
+            else if (RegistryKeys.BIOME.equals(key)) return Optional.of(cursedBiomeRegistry);
+            else if (RegistryKeys.DIMENSION_TYPE.equals(key)) return Optional.of(CURSED_DIMENSION_TYPE_REGISTRY);
                 // This fixes lithium compat post-1.20.5
-                return Optional.of(cursedBannerRegistry);
-            }
-
+            else if (RegistryKeys.BANNER_PATTERN.equals(key)) return Optional.of(cursedBannerRegistry);
             return Optional.empty();
         }
 
