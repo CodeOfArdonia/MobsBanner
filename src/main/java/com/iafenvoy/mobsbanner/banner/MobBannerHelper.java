@@ -2,7 +2,6 @@ package com.iafenvoy.mobsbanner.banner;
 
 import com.iafenvoy.mobsbanner.component.BannerBlockComponent;
 import com.iafenvoy.mobsbanner.component.CcaComponentHelper;
-import com.iafenvoy.mobsbanner.cursed.DummyClientPlayerEntity;
 import com.iafenvoy.mobsbanner.data.DefaultMobBannerData;
 import com.iafenvoy.mobsbanner.util.DyeColorUtil;
 import com.mojang.datafixers.util.Pair;
@@ -113,9 +112,7 @@ public class MobBannerHelper {
     @Nullable
     public static LivingEntity createEntity(EntityType<?> type, NbtCompound nbt, World world) {
         if (type == null) return null;
-        if (type == EntityType.PLAYER)
-            return DummyClientPlayerEntity.get(nbt.containsUuid("player_uuid") ? nbt.getUuid("player_uuid") : null, nbt.getString("player_name"));
-        else if (type.create(world) instanceof LivingEntity livingEntity) {
+        if (type.create(world) instanceof LivingEntity livingEntity) {
             try {
                 livingEntity.readCustomDataFromNbt(nbt);
                 livingEntity.tick();
